@@ -18,6 +18,7 @@
 *.app
 
 # OS X fluff
+*.dSYM
 .DS_Store
 
 # emacs backups
