@@ -242,9 +242,9 @@ static char* parseURL(char* stream_map,
 		      VIDEO_QUALITY quality)
 {
   enum { // stream map param types
-    URL, CP, IP, UPN, SPARAMS, SVER, SOURCE, EXPIRE, ITAG, IPBITS,
-    ID, KEY, RATEBYPASS, FEXP, BURST, MT, MV, MS, FALLBACK_HOST,
-    TYPE, QUALITY, SIG, N_PARAMS
+    URL, CP, IP, UPN, SPARAMS, SVER, SOURCE, EXPIRE, ITAG, 
+    IPBITS, ID, KEY, RATEBYPASS, FEXP, BURST, PCM2FR, MT, MV, 
+    MS, FALLBACK_HOST, TYPE, QUALITY, SIG, N_PARAMS
   };
   char* url = NULL;  // stream url
   char first_param[11]; // first param in stream map
@@ -267,12 +267,6 @@ static char* parseURL(char* stream_map,
       break;
   }
   first_param[i+1] = '\0';
-
-  /*  PROBLEM: 
-   *  IF first_param IS 'itag=' THEN map[URL] will alwasy
-   *  BE NULL. THIS IS BECAUSE THERE ARE 2 'itag=' parameters in
-   *  THE STREAM MAP. NEED TO ADDRESS THIS CASE.
-   */					       
 
   // get string that designates end of inidividual url param list
   snprintf(end_param, 13, ",%s", first_param); // "," + first_param
@@ -342,6 +336,7 @@ static char* parseURL(char* stream_map,
   map[RATEBYPASS] = strstr(mark, "ratebypass=");
   map[FEXP] = strstr(mark, "fexp=");
   map[BURST] = strstr(mark, "burst=");
+  map[PCM2FR] = strstr(mark, "pcm2fr=");
   map[MT] = strstr(mark, "mt=");
   map[MV] = strstr(mark, "mv=");
   map[MS] = strstr(mark, "ms=");
@@ -391,8 +386,9 @@ static char* parseURL(char* stream_map,
   strcat(url, "&");
   for (i=1; i<SIG; i++)
     if (map[i] != NULL) {
-      if (map[i] != url_attached_param) { // dont copy param that is
-	strcat(url, map[i]);              // included in url.
+      // dont copy param that is included in url, or second itag
+      if (strcmp(map[i], url_attached_param) != 0) {
+	strcat(url, map[i]);              
 	strcat(url, "&");
       }
     }
@@ -433,6 +429,7 @@ char* strFormat(VIDEO_FORMAT format)
 static char* laststr(char* str, char* substr)
 {
   char* temp;
+  char* str2;
 
   // check if substr is in str
   temp = strstr(str, substr);
@@ -441,9 +438,10 @@ static char* laststr(char* str, char* substr)
 
   // find last occurrence of substr
   while (temp != NULL) {
+    str2 = str;
     str = temp;
     temp = strstr(str + 1, substr);
   }
 
-  return str;
+  return strcmp(substr, "itag=") ? str : str2;
 }

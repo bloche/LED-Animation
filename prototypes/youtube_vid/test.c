@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "yt-surl.h"
+#include "../../src/youtube_interface/yt-surl.h"
 
 int main(int argc, char* argv[]) 
 {

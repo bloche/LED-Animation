@@ -3,15 +3,16 @@
 BIN = test
 CC = gcc
 CFLAGS = -Wall
+SOURCE = ../../src/youtube_interface/yt-surl.c
 
 $(BIN) : $(BIN).c yt-surl.o
 	$(CC) -o $(BIN) $(CFLAGS) $(BIN).c yt-surl.o -lcurl
 
-ty-surl.o : ty-surl.c
-	$(CC) -c $(CFLAGS) ty-surl.c
+yt-surl.o : $(SOURCE)
+	$(CC) -c $(CFLAGS) $(SOURCE)
 
 debug:  $(BIN).c
-	$(CC) -o $(BIN) $(CFLAGS) $(BIN).c yt-surl.c -g -lcurl
+	$(CC) -o $(BIN) $(CFLAGS) $(BIN).c $(SOURCE) -g -lcurl
 
 clean:
 	rm *.o $(BIN)
