@@ -15,4 +15,5 @@ debug:  $(BIN).c
 	$(CC) -o $(BIN) $(CFLAGS) $(BIN).c $(SOURCE) -g -lcurl
 
 clean:
-	rm *.o $(BIN)
+	rm *.o *~ $(BIN) 
+	rm -r $(BIN).dSYM
