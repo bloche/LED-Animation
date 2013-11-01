@@ -12,7 +12,7 @@ if [ $# -gt 0 ]
 then
     echo "Retrieving video info..."
     
-    URL=`./test $1`
+    URL=`./test.out $1`
     URL_LEN=`echo $URL | wc -c`
     
     if [ $URL_LEN -gt 150 ] 
