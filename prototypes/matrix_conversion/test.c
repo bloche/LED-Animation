@@ -27,7 +27,7 @@ void printMatrix(uint8_t** matrix, int row, int col) {
 int main() {
   color** in_matrix;
   uint8_t** out_matrix;
-  const SIZE = 4;
+  int const SIZE = 4;
   int i, j, count;
   
   // allocate memeory
