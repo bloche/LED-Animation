@@ -92,9 +92,10 @@ char* getStreamURL (char* video_url,
   
   // strip video id from youtube url
   video_id = getVideoId(video_url);
-  if (video_id == NULL)
+  if (video_id == NULL) {
+    free(gvi_url);
     return "Error: Invalid URL / ID\n";
-  
+  }
   gvi_info.memory = malloc(1); // will get bigger with realloc
   gvi_info.size = 0;   // nothing in memory
 
