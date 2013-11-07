@@ -12,22 +12,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../src/led_interface/convert.h"
+#include "../../src/video_stream_interface/convert.h"
 
-void printMatrix(uint8_t** matrix, int row, int col) {
+void printMatrix(uint8_t* matrix, int size) {
   int i, j;
-  for(i=0; i<row; i++) {
-    printf("   [ ");
-    for(j=0; j<col; j++)
-      printf("%3i ", matrix[i][j]);
-    printf("]\n");
-  }
+  printf("   [ ");
+  for(i=0; i<size; i++) 
+      printf("%2i ", matrix[i]);
+  printf("]\n");
 }
 
 int main() {
   color** in_matrix;
-  uint8_t** out_matrix;
-  int const SIZE = 4;
+  uint8_t* out_matrix;
+  int const SIZE = 3;
   int i, j, count;
   
   // allocate memeory
@@ -63,7 +61,7 @@ int main() {
   if (out_matrix == NULL)
     printf("Error: convert\n");
   else {
-    printMatrix(out_matrix, 3, SIZE * SIZE);
+    printMatrix(out_matrix, 3 * SIZE * SIZE);
     free(out_matrix);
   }
   printf("\n");
@@ -73,7 +71,7 @@ int main() {
   if (out_matrix == NULL)
     printf("Error: convert\n");
   else {
-    printMatrix(out_matrix, 3, SIZE * SIZE);
+    printMatrix(out_matrix, 3 * SIZE * SIZE);
     free(out_matrix);
   }
   printf("\n");
@@ -83,7 +81,7 @@ int main() {
   if (out_matrix == NULL)
     printf("Error: convert\n");
   else {
-    printMatrix(out_matrix, 3, SIZE * SIZE);
+    printMatrix(out_matrix, 3 * SIZE * SIZE);
     free(out_matrix);
   }
   printf("\n");
@@ -93,7 +91,7 @@ int main() {
   if (out_matrix == NULL)
     printf("Error: convert\n");
   else {
-    printMatrix(out_matrix, 3, SIZE * SIZE);
+    printMatrix(out_matrix, 3 * SIZE * SIZE);
     free(out_matrix);
   }
   printf("\n");

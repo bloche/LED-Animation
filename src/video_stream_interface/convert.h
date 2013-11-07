@@ -16,12 +16,12 @@
 enum {ROW_WISE, COL_WISE, SCAN_MONODIR, SCAN_BIDIR};
 
 /* convert in_matrix with in_width and in_height demintions, to a
-   matrix three times larger, 3x(in_width * in_height)
+   matrix three times larger (in_width * in_height * 3)
    
    wise determins row wise or column wise; scan determines single 
    deirection scan or back and forth scan of in_matrix.
 */
-uint8_t** convert(color** in_matrix, 
+uint8_t* convert(color** in_matrix, 
 		  unsigned int in_width, 
 		  unsigned int in_hight, 
 		  unsigned int wise, 
