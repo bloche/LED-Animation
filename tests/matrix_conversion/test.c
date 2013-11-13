@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../src/video_stream_interface/convert.h"
+#include "convert.h"
 
 void printMatrix(uint8_t* matrix, int size) {
   int i, j;
