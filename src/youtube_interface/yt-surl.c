@@ -70,7 +70,9 @@ static char* laststr(char* str, char* substr);
    On success getStreamURL() returns a string containig the youtube video's 
    stream url.
 
-   On failure getStreamURL() returns NULL.
+   On failure getStreamURL() returns NULL, or a string containing an error
+   message about what went wrong. A good test for this type of error is if
+   strlen(returned_url) < 150 then print the error returned.
 */
 char* getStreamURL (char* video_url, 
 		    VIDEO_FORMAT format, 
