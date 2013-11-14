@@ -23,3 +23,6 @@
 
 # emacs backups
 *~
+
+# mp4 files
+*.mp4
