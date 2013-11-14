@@ -3,7 +3,7 @@
 BIN = test
 CC = gcc
 CFLAGS = -Wall
-SOURCE = ../../src/youtube_interface/yt-surl.c
+SOURCE = ../../../src/youtube_interface/yt-surl.c
 
 $(BIN) : $(BIN).c yt-surl.o
 	$(CC) -o $(BIN).out $(CFLAGS) $(BIN).c yt-surl.o -lcurl
