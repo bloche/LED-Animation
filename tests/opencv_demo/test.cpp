@@ -3,10 +3,19 @@
    Test the installation of openCV on the computer. This test requires
    windowing, it will not function properly in terminal mode.
 
-   If compiled correctly, this file should display the test.mp4 video
-   in a video titles "video stream".
+   If openCV is installed correctly with all of the requred dependencies, 
+   this file shold compile using 'make', given the proper makefile from
+   the LED-Animation git repository is present in this folder.
+ 
+   When executed this program should display a video, located in the 
+   current directory called test.mp4, in a window titled "video stream".
 
-   Press any button while video is playing to exit.
+   test.mp4 needs to be a valid mp4 file copied into this directory. One 
+   way to acquire an mp4 file would be to download one via the video_stream
+   test program playVideo with the -d option. Be sure libcurl is installed
+   on your system.
+
+   To exit the video while it is playing, press any button.
 */
 
 #include <opencv2/core/core.hpp>
