@@ -19,12 +19,11 @@ using namespace std;
 int stream_video(char* video_location) {
   VideoCapture stream;
   Mat frame;
-  const string LOCATION = video_location;
 
   if (video_location == NULL)
     return -1;
   
-  if(!stream.open(LOCATION)) {
+  if(!stream.open(video_location)) {
     cout << "Error opening video stream or file" << endl;
     return -2;
   }
