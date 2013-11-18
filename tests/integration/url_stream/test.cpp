@@ -44,7 +44,8 @@ int main(int argc, char **argv)
   if (stream_video(url) < 0)
     printf("Error streaming video\n");
 
-  free(url);
+  if(url)
+    free(url);
   
   return 0;
 }
