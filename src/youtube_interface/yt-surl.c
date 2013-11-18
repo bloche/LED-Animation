@@ -244,8 +244,9 @@ static char* parseURL(char* stream_map,
 {
   enum { // stream map param types
     URL, CP, IP, UPN, SPARAMS, SVER, SOURCE, EXPIRE, ITAG, 
-    IPBITS, ID, KEY, RATEBYPASS, FEXP, BURST, PCM2FR, MT, MV, 
-    MS, FALLBACK_HOST, TYPE, QUALITY, SIG, N_PARAMS
+    IPBITS, ID, KEY, RATEBYPASS, FEXP, BURST, PCM2FR, HIGHTC, 
+    ALGORITHM, CLEN, DUR, FACTOR, GIR, MT, MV, MS, 
+    FALLBACK_HOST, TYPE, QUALITY, SIG, N_PARAMS
   };
   char* url = NULL;  // stream url
   char first_param[11]; // first param in stream map
@@ -338,6 +339,12 @@ static char* parseURL(char* stream_map,
   map[FEXP] = strstr(mark, "fexp=");
   map[BURST] = strstr(mark, "burst=");
   map[PCM2FR] = strstr(mark, "pcm2fr=");
+  map[HIGHTC] = strstr(mark, "hightc=");
+  map[ALGORITHM] = strstr(mark, "algorithm=");
+  map[CLEN] =  strstr(mark, "clen=");
+  map[DUR] = strstr(mark, "dur=");
+  map[FACTOR] = strstr(mark, "factor=");
+  map[GIR] = strstr(mark, "gir=");
   map[MT] = strstr(mark, "mt=");
   map[MV] = strstr(mark, "mv=");
   map[MS] = strstr(mark, "ms=");

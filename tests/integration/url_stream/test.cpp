@@ -39,12 +39,11 @@ int main(int argc, char **argv)
     exit(1);
   }
   
-  printf(" done\nPlaying video");
+  printf(" done\nPlaying video\n");
   fflush(stdout);
   if (stream_video(url) < 0)
     printf("Error streaming video\n");
-  else
-    printf("   done\n");
+
   free(url);
   
   return 0;
