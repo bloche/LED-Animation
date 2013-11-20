@@ -48,7 +48,7 @@ int stream_video(char* video_location) {
     /* convert LEDframe Mat uint8_t array */
     pixmap = extract_pixels(LEDframe);
     if (pixmap == NULL)
-      printf("Error converting to pixel map\n");
+      cout << "Error converting to pixel map" << endl;
 
     /* test frame capture */
     imshow("video stream", LEDframe);
