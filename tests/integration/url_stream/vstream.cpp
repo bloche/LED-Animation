@@ -12,7 +12,7 @@
 #include <iostream>
 #include <stdint.h>
 
-#include "vstream.hpp"
+#include "vstream.h"
 
 using namespace cv;
 using namespace std;
@@ -37,10 +37,9 @@ int stream_video(char* video_location) {
 
   for(;;) {
     /* get frame from stream */
-    if(!stream.read(frame)) {
-      cout << "No frame" << endl;
+    if(!stream.read(frame)) 
       break;
-    }
+
 
     /* resize to 32x32 resolution */
     resize(frame, LEDframe, LEDframe.size(), 0, 0, INTER_AREA);
@@ -54,8 +53,10 @@ int stream_video(char* video_location) {
     imshow("video stream", LEDframe);
     if(waitKey(1) >= 0) break;
     
-    if(pixmap)
+    if(pixmap) {
       delete pixmap;
+      pixmap = NULL;
+    }
   }
   
   if(pixmap)

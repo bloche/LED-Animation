@@ -96,7 +96,7 @@ char* getStreamURL (char* video_url,
   video_id = getVideoId(video_url);
   if (video_id == NULL) {
     free(gvi_url);
-    return "Error: Invalid URL / ID\n";
+    return "Error: Invalid URL / ID";
   }
   gvi_info.memory = malloc(1); // will get bigger with realloc
   gvi_info.size = 0;   // nothing in memory
@@ -114,18 +114,23 @@ char* getStreamURL (char* video_url,
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &gvi_info);
     rv = curl_easy_perform(curl);
     if (rv != CURLE_OK) {
-      fprintf(stderr, "curl request failed: %s\n",
+      fprintf(stderr, "HTTP request failed: %s\n",
 	      curl_easy_strerror(rv));
       free(gvi_url);
       return NULL;
     }
   }
+  else 
+    return NULL;
   free(gvi_url);  // release precious memory
 
   // mark start and end of fmt stream map
   mark = strstr( gvi_info.memory, "url_encoded_fmt_stream_map=" );
-  if (mark == NULL)
-    return "Error: This video is protected by the YouTube copyright agreement and cannot be displayed\n";
+  if (mark == NULL) 
+    if (gvi_info.size < 300)
+      return "Error: video does not exist";
+    else 
+      return "Error: This video is protected by the YouTube copyright agreement and cannot be displayed";
   end = strchr( mark, '&');
 
   // move pointer to beginning of fmt stream map value

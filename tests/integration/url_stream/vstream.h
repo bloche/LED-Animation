@@ -1,5 +1,5 @@
 /* Everett Bloch   11/13/13
-   vstream.hpp
+   vstream.h
 
    Header file for vstream.cpp. 
 */

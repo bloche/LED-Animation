@@ -1,7 +1,7 @@
 # compile youtube interface and video stream interface integration test files
 
 SRC1=../../../src/youtube_interface/yt-surl.c 
-SRC2=../../../src/video_stream_interface/vstream.cpp
+SRC2=vstream.cpp
 
 all: yt-surl.o vstream.o test.o
 	g++ test.o yt-surl.o vstream.o `pkg-config opencv --libs` -lcurl

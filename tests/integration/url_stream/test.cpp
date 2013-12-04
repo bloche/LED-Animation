@@ -16,7 +16,7 @@
 extern "C" {
 #include "../../../src/youtube_interface/yt-surl.h"
 }
-#include "../../../src/video_stream_interface/vstream.hpp"
+#include "vstream.h"
 
 int main(int argc, char **argv) 
 {
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     exit(1);
   }
 
-  printf("Retrieving video stream... ");
+  printf("Retrieving video stream...\n");
   url = getStreamURL(argv[1], VF_MP4, VQ_LOW);
   if (url == NULL) {
     printf("Error retrieving YouTube video\n");
@@ -35,12 +35,11 @@ int main(int argc, char **argv)
   }
 
   if (strlen(url) < 150) {
-    printf("\n%s\n", url);
+    printf("%s\n", url);
     exit(1);
   }
   
-  printf(" done\nPlaying video\n");
-  fflush(stdout);
+  printf("Playing video\n");
   if (stream_video(url) < 0)
     printf("Error streaming video\n");
 
