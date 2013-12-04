@@ -1,0 +1,9 @@
+This is a test for integration of the Video Stream Interface and the LED 
+Panel Interface of this project.
+
+This set of files is designed to run on the Raspberry Pi with team RPLD's
+display drivers installed on. Note that Qt and OpenCV must be installed 
+on the local machine, and any relative path to dependant files / directories
+must be resolved before compilation will succeed. 
+
+video.pro is the qmake build file for this test.
