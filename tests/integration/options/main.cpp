@@ -11,10 +11,10 @@
 #include <string.h>
 
 extern "C" {
-#include "youtube_interface/yt-surl.h"
+#include "../../../src/youtube_interface/yt-surl.h"
 }
 
-#include "../tests/integration/url_stream/vstream.h"
+#include "../url_stream/vstream.h"
 
 int main(int argc, char* argv[]) {
   char c;

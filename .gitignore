@@ -37,4 +37,6 @@ moc_*
 # error file
 error.txt
 
+# project executable
+leda
 

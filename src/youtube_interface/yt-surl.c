@@ -193,9 +193,14 @@ static size_t curl_capture_cb (void *contents, size_t size,
 static char* getVideoId(char* video_url) 
 {
   char* video_id = NULL;
-  int url_len = strlen(video_url);
+  int url_len;
   int id_len = 11;     
   int i, j;   // loop variables
+
+  if (video_url == NULL)
+    return NULL;
+
+  url_len = strlen(video_url);
 
   // assume only video id was put in with no url
   if (url_len == id_len) {

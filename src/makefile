@@ -1,7 +1,9 @@
 # makefile
 
-a.out : main.o yt-surl.o vstream.o
-	g++ main.o yt-surl.o vstream.o `pkg-config opencv --libs` -lcurl
+BIN=leda
+
+$(BIN) : main.o yt-surl.o vstream.o
+	g++ -o $(BIN) main.o yt-surl.o vstream.o `pkg-config opencv --libs` -lcurl
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -13,4 +15,4 @@ vstream.o: ../tests/integration/url_stream/vstream.cpp
 	g++ -c ../tests/integration/url_stream/vstream.cpp `pkg-config opencv --cflags`
 
 clean:
-	rm *.o *.mp4
+	rm *.o *.mp4 leda
