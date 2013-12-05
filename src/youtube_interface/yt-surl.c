@@ -96,7 +96,7 @@ char* getStreamURL (char* video_url,
   video_id = getVideoId(video_url);
   if (video_id == NULL) {
     free(gvi_url);
-    return "Error: Invalid URL / ID";
+    return "Error: Invalid video identifier";
   }
   gvi_info.memory = malloc(1); // will get bigger with realloc
   gvi_info.size = 0;   // nothing in memory
