@@ -58,11 +58,13 @@ int main(int argc, char* argv[]) {
       youtube_flg = 0;
       break;
     case '?':
-      printf("Usage: %s [-x?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n", argv[0]);
+      printf("LED Animation:\n");
+      printf("Display a video on a Raspberry PI LED panel.\n");
+      printf("Usage: %s [-x?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n\n", argv[0]);
       printf("Options description:\n");
       printf("\tb file - Buffer LED display pixel map to specified file\n");
       printf("\td file - Download YouTube video to specified file\n");
-      printf("\tl file - Load file containtin LED pixel map and stream data\n");
+      printf("\tl file - Load file containting LED pixel map and display data\n");
       printf("\t	   (requires -b option to have already been run)\n");
       printf("\tx      - Video is not from YouTube, use with URLs\n");
       printf("\t?      - Print options\n");
@@ -74,8 +76,8 @@ int main(int argc, char* argv[]) {
     }
 
   /* check if valid parameters were input */
-  if (argv[optind] == NULL || errflg) {
-    printf("Usage: %s [-x?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n", argv[0]);
+  if (argv[optind] == NULL || (errflg && !fstream_flg)) {
+    printf("Usage: %s [-x] [-?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n", argv[0]);
     exit(1);
   }
 
@@ -111,6 +113,11 @@ int main(int argc, char* argv[]) {
       printf("Error: '%s' could not be opened\n", buffer_file);
       exit(1);
     }
+    /*
+      convert video into uint8_t pixel map, put pixel map in bfile
+      system command could do this, instead of rewiring what Grant 
+      already has.
+     */
   }
 
   /* check if download flag was set */
@@ -134,13 +141,25 @@ int main(int argc, char* argv[]) {
   
   /* check is load and stream pixmap from file flag was set */
   if (fstream_flg) {
+    if (!vid_isfile) {
+      printf("Error: -l option requires a local file\n");
+      exit(1);
+    }
     infile = fopen(fstream_file, "r");
     if (infile == NULL) {
       printf("Error: '%s' could not be opened\n", fstream_file);
       exit(1);
     }
+    /*
+      stream video from infile, contains uint8_t pixel map
+     */
   }
 
+  /* display video */
+  /*
+    True video stream from file or url
+    -l option should pull from saved uint8_t pixel map file
+   */
   if (vid_isfile || !youtube_flg)
     stream_video(argv[optind]);
   else 
