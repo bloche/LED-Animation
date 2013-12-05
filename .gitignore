@@ -24,5 +24,17 @@
 # emacs backups
 *~
 
-# mp4 files
+# video files
 *.mp4
+*.mpeg
+*.avi
+*.flv
+*.wmv
+
+# qmake moc files
+moc_*
+
+# error file
+error.txt
+
+
