@@ -1,0 +1,120 @@
+USER MANUAL: LED Animation			TEAM: Automaten
+     	     University of Idaho      		Everett Bloch
+	     Capstone Design	      		Grant Boomer
+	     Fall 2013
+
+CLIENT:      Dr. Robert Rinker
+	     Associate Professor
+	     Department of Computer Science
+	     University of Idaho
+
+This user manual details the usage and functionality of team Automaten's 
+final product for the LED Animation project.
+
+Date: 12/10/2013
+
+------------------------------------------------------------------------------ 
+
+Name:
+	leda - stream a video to an LED panel running on a Raspberry Pi  
+
+Synopsis:
+	lead [-x] [-?] [-d file] [-b file] [-l file] video_location
+
+Description:
+
+	lead is a command line tool that provides functionality for displaying
+	a video on an LED panel that is running off of a Raspberry Pi. 
+
+	The default behavior of leda is to stream a video from the source 
+	video located at video_location to the LED panel. This location can 
+	either be a local video file, a URL to a video file (or stream) on 
+	the network, or a YouTube video URL or ID (YouTube video ID's are 
+	located in their URL, generally after a 'v=' parameter. They are 11 
+	characters in length).
+
+	Direct streaming requires a lot of CPU utilization, which on the 
+	Raspberry Pi will impact the frame rate of the displayed video. To 
+	address this issue, leda provides an option for the video to be
+	processed and buffered the video data in a local object file 
+	(.led extended by convention). This will improve the frame rate 
+	significantly when the video is displayed from the file, instead
+	of the raw video stream.
+
+	For offline applications, lead offers an option to download a video 
+	from a URL to a local file. Files should have a proper video extension
+	(e.g. .mp4 .avi .mpeg etc.), the functionality of running leda on a 
+	file with an incorrect or missing extension is undefined. The options
+	detailed above function the same offline, on a local file, as they do
+	when streaming from a URL.
+
+	By default all URL's are expected to be from YouTube. To indicate that
+	a URL is not from YouTube, an option is provided. Note that YouTube 
+	provides copyright protection for proprietary videos. These videos will
+	not be able to be displayed using leda, and a an error to notify you 
+	of this will be displayed accordingly.
+
+	Finally, it is important to note that YouTube can change their
+	specification's for retrieving video files at any time. In this case
+	it is likely that the streaming of YouTube videos will intermittently 
+	cause errors, or in the case of extreme alterations, not be possible. 
+	To troubleshoot this issue, see section 3.2.3 of the SDD.
+
+Options:
+
+	Default behavior, without options, is to stream the video located at
+	video_location (YouTube URL, YouTube ID, or local file) to the LED 
+	panel connected to the Raspberry Pi. The following options will provide
+	alternative functionality.
+
+	-?        
+	   Display a short description of leda usage and options.
+
+	-x
+	   Indicate that URL provided is not from YouTube.
+
+	-d file
+	   Download the video stream from the specified video_location to a 
+	   local file, file. The local file should have the proper video
+	   file extension (.mp4 .avi .mpeg etc.).
+
+	-b file
+	   Buffer the video stream as the raw frame data for displaying to the
+	   LED panel. This buffered stream is stored in an object file, file.
+	   By convention, these files should have a .led extension, but is not
+	   required.
+
+	-l file
+	   Load raw frame data from object file, file, created with the -b 
+	   option. This will improve frame rate significantly.
+
+Examples:
+
+	Stream a video from YouTube to the LED display:
+
+	leda http://www.youtube.com/watch?v=ZSt9tm3RoUU
+	----
+	Same as above:
+
+	leda ZSt9tm3RoUU
+	----
+	Stream a rtsp video stream to LED panel:
+
+	leda -x rtsp://digitalbroadcast.streamguys.net/live-studio.sdp
+	----
+	Download a video from YouTube
+
+	leda -d world.mp4 http://www.youtube.com/watch?v=ZSt9tm3RoUU
+	----
+	Stream a video from a local .mp4 file
+
+	leda world.mp4
+	----
+	Buffer YouTube video stream in object file:
+
+	leda -b world.led ZSt9tm3RoUU
+	----
+	Load and play video from object file:
+	
+	leda -l world.led
+	----
