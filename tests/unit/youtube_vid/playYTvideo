@@ -25,8 +25,8 @@ then
 	then
 	    if [ "$2" == "-d" ]
 	    then
-		echo "Downloading video to ~/Downloads/$3"
-		curl -o ~/Downloads/$3 --location $URL
+		echo "Downloading video to $3"
+		curl -o $3 --location $URL
 	    else
 		printUsage
 	    fi
