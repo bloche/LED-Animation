@@ -40,3 +40,6 @@ error.txt
 # project executable
 leda
 
+#led files
+*.led
+

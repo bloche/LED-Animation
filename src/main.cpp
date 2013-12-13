@@ -5,16 +5,27 @@
    into a single program.
 */
 
+#include <string.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <QCoreApplication>
+//#include "led_interface/videocontroller.h"
+#include "video_stream_interface/videoreaderdelegate.h"
+#include "video_stream_interface/videoreader.h"
+#include "video_stream_interface/ledvideoreader.h"
+#include "led_interface/ledmatrixdriver.cpp"
 
 extern "C" {
 #include "youtube_interface/yt-surl.h"
 }
 
 #include "../tests/integration/url_stream/vstream.h"
+
+#define MAIN_OTHER 0
+#define MAIN_LED 1
 
 int main(int argc, char* argv[]) {
   char c;
@@ -26,6 +37,10 @@ int main(int argc, char* argv[]) {
   char* download_file = NULL;
   char* fstream_file = NULL;
 
+  char* mfilename;  
+  uint8_t* convertBuffer;
+  int counter= 0;
+
   FILE* ofile = NULL;
   FILE* bfile = NULL;
   FILE* infile = NULL;
@@ -33,15 +48,21 @@ int main(int argc, char* argv[]) {
   int vid_isfile = 0;
   FILE* temp_file = NULL;
 
+  LEDMatrixDriver* driver;
+
   char* url = NULL;
 
   int SIZE = 1024;
   char cmd[SIZE];
 
+  VideoReaderDelegate* reader;
+ // VideoController* controller;
+
+  QCoreApplication* a = new QCoreApplication(argc, argv);
   /* get options */
-  while ((c = getopt(argc, argv, "b:d:l:x?")) != EOF)
-    switch (c) {
-    case 'b':
+  while ((c = getopt(argc, argv, "b:d:l:x?")) != 255){ 
+  switch (c) {
+   case 'b':
       buffer_file = optarg;
       buffer_flg = 1;
       break;
@@ -50,6 +71,7 @@ int main(int argc, char* argv[]) {
       dwnld_flg = 1;
       break;
     case 'l':
+      printf("found case 1");
       fstream_file = optarg;
       fstream_flg = 1;
       vid_isfile = 1;
@@ -71,12 +93,14 @@ int main(int argc, char* argv[]) {
       exit(1);
       break;
     default :
+    printf("at 1\n");
     printf("Usage: %s [-x] [-?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n", argv[0]);
     exit(1);
     }
-
+  }
   /* check if valid parameters were input */
   if (argv[optind] == NULL && !(fstream_flg)) {
+    printf("at 2");
     printf("Usage: %s [-x] [-?] [-d file] [-b file] [-l file] <video (URL, ID, or PATH)>\n", argv[0]);
     exit(1);
   }
@@ -118,6 +142,15 @@ int main(int argc, char* argv[]) {
       system command could do this, instead of rewiring what Grant 
       already has.
      */
+    convertBuffer = new uint8_t[3072]();
+    VideoReader* reader = new VideoReader(argv[optind],convertBuffer,3072);
+    reader->getNextFrame();
+    while(1){
+      fwrite(convertBuffer, sizeof(uint8_t), 3072, bfile);
+     // printf("Grabed frame %i\n",counter);
+      reader->getNextFrame();
+    }   
+    counter = 0;
     exit(1);
   }
 
@@ -147,20 +180,37 @@ int main(int argc, char* argv[]) {
       printf("Error: '%s' could not be opened\n", fstream_file);
       exit(1);
     }
-    /*
-      stream video from infile, contains uint8_t pixel map
-     */
-  }
-
+    driver = new LEDMatrixDriver(argv[2], MAIN_LED);
+    driver->start();
+    
+/*
+    printf("Displaying .LED file");
+    mfilename = strdup(argv[2]);
+    printf("mfilename is %s\n",mfilename);
+    reader = new LEDVideoReader(mfilename,NULL, 3072);
+    controller = new VideoController(reader, mfilename);
+    printf("reader and controller complete\n");
+*/
+  } else {  
   /* display video */
   /*
     True video stream from file or url
     -l option should pull from saved uint8_t pixel map file
    */
-  if (vid_isfile || !youtube_flg)
-    stream_video(argv[optind]);
-  else 
-    stream_video(url);
- 
+  if (vid_isfile || !youtube_flg){
+    driver = new LEDMatrixDriver(argv[optind],MAIN_OTHER);
+    driver->start();
+  }
+  else {
+    driver = new LEDMatrixDriver(url,MAIN_OTHER);
+    driver->start();
+  }
+}
+  //finish QMain code
+  printf("about to call a->exec\n");
+  a->exec();
+  if(NULL != mfilename){
+    free(mfilename);
+  }
   return 0;
 }
