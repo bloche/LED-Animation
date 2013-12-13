@@ -1,0 +1,12 @@
+Build info for the LED Animation project.
+
+To build the package execute the following commands:
+
+qmake lead.pro
+make
+
+The first command will build the Qt moc files required for building proper Qt
+files. This will generate an appropreate make file.
+
+The second command will build the executable, leda, from the the generated
+make file. 
