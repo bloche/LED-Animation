@@ -19,11 +19,11 @@ Name:
 	leda - stream a video to an LED panel running on a Raspberry Pi  
 
 Synopsis:
-	lead [-x] [-?] [-d file] [-b file] [-l file] video_location
+	leda [-x] [-?] [-d file] [-b file] [-l file] video_location
 
 Description:
 
-	lead is a command line tool that provides functionality for displaying
+	leda is a command line tool that provides functionality for displaying
 	a video on an LED panel that is running off of a Raspberry Pi. 
 
 	The default behavior of leda is to stream a video from the source 
@@ -35,13 +35,12 @@ Description:
 
 	Direct streaming requires a lot of CPU utilization, which on the 
 	Raspberry Pi will impact the frame rate of the displayed video. To 
-	address this issue, leda provides an option for the video to be
-	processed and buffered the video data in a local object file 
-	(.led extended by convention). This will improve the frame rate 
-	significantly when the video is displayed from the file, instead
-	of the raw video stream.
+	address this issue, leda provides an option to process and buffer
+	the video data in a local object file (.led extended by convention). 
+	This will improve the frame rate significantly when the video is 
+	displayed from the file, instead of the uncompressed video stream.
 
-	For offline applications, lead offers an option to download a video 
+	For offline applications, leda offers an option to download a video 
 	from a URL to a local file. Files should have a proper video extension
 	(e.g. .mp4 .avi .mpeg etc.), the functionality of running leda on a 
 	file with an incorrect or missing extension is undefined. The options
@@ -58,7 +57,7 @@ Description:
 	specification's for retrieving video files at any time. In this case
 	it is likely that the streaming of YouTube videos will intermittently 
 	cause errors, or in the case of extreme alterations, not be possible. 
-	To troubleshoot this issue, see section 3.2.3 of the SDD.
+	To troubleshoot this issue, see section 3.2.3 of this product's SDD.
 
 Options:
 
@@ -68,7 +67,7 @@ Options:
 	alternative functionality.
 
 	-?        
-	   Display a short description of leda usage and options.
+	   Display a short description of leda's usage and options.
 
 	-x
 	   Indicate that URL provided is not from YouTube.

@@ -40,6 +40,8 @@ error.txt
 # project executable
 leda
 
-#led files
+# led object files
 *.led
 
+# vi backups
+*.swp
