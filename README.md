@@ -17,7 +17,9 @@ This is a University of Idaho, Fall 2013 semester, senior design project created
 * pkgconfig;
 * Python 2.6 or later and Numpy 1.5 or later with developer packages (python-dev, python-numpy).
 * ffmpeg or libav development packages: libavcodec-dev, libavformat-dev, libswscale-dev.
-''Build Tutorial (Linux)'': http://tech.enekochan.com/2012/07/27/install-opencv-2-4-2-with-ffmpeg-support-in-mac-os-x-10-8/
+<br />
+
+Build Tutorial (Linux): http://tech.enekochan.com/2012/07/27/install-opencv-2-4-2-with-ffmpeg-support-in-mac-os-x-10-8/
 
 ####libcurl
 * libcurl4-gnutls-dev binary package
